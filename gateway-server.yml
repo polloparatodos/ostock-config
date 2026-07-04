@@ -39,6 +39,15 @@ spring:
 #        - Path=/license/**
 #        filters:
 #        - RewritePath=/license/(?<path>.*), /$\{path}
+      # Manually mapped route to an external URI (google.com). Unlike the
+      # discovery-locator/lb:// routes above, this points at a fixed external
+      # host, so its uri is a plain https URL rather than a service id.
+      - id: google-route
+        uri: https://www.google.com
+        predicates:
+        - Path=/google/**
+        filters:
+        - RewritePath=/google/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
