@@ -48,6 +48,15 @@ spring:
         - Path=/google/**
         filters:
         - RewritePath=/google/(?<segment>.*), /$\{segment}
+      # Second external route (baylor.edu) added to demonstrate that the gateway
+      # dynamically reloads routing config from the Git-backed Config Server via
+      # POST /actuator/refresh -- no rebuild or restart required.
+      - id: baylor-route
+        uri: https://www.baylor.edu
+        predicates:
+        - Path=/baylor/**
+        filters:
+        - RewritePath=/baylor/(?<segment>.*), /$\{segment}
 
 management:
   endpoints:
