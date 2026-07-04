@@ -15,9 +15,9 @@ spring:
   cloud:
     loadbalancer.ribbon.enabled: false
     gateway:
-      discovery.locator:
-          enabled: true
-          lowerCaseServiceId: true
+#      discovery.locator:
+#          enabled: true
+#          lowerCaseServiceId: true
       routes:
       # This optional ID is an arbitrary route ID.
 #      - id: organization-service
