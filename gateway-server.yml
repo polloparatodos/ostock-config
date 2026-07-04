@@ -15,48 +15,9 @@ spring:
   cloud:
     loadbalancer.ribbon.enabled: false
     gateway:
-      #discovery.locator:
-          #enabled: true
-          #lowerCaseServiceId: true
-      routes:
-      # This optional ID is an arbitrary route ID.
-      - id: organization-service
-        # Sets the route's destination URI
-        uri: lb://organization-service
-
-        # The path, although set by the load() method, is just another option.
-        predicates:
-        - Path=/organization/**
-        # Filters a collection of Spring web.filters to modify the request or response before or after
-        # sending the response
-        filters:
-        # Rewrites the request path, from /organization/** to /** by taking the path regexp as a parameter
-        # and a replacement order
-        - RewritePath=/organization/(?<path>.*), /$\{path}
-      - id: licensing-service
-        uri: lb://licensing-service
-        predicates:
-        - Path=/license/**
-        filters:
-        - RewritePath=/license/(?<path>.*), /$\{path}
-      # Manually mapped route to an external URI (google.com). Unlike the
-      # discovery-locator/lb:// routes above, this points at a fixed external
-      # host, so its uri is a plain https URL rather than a service id.
-      - id: google-route
-        uri: https://www.google.com
-        predicates:
-        - Path=/google/**
-        filters:
-        - RewritePath=/google/(?<segment>.*), /$\{segment}
-      # Second external route (baylor.edu) added to demonstrate that the gateway
-      # dynamically reloads routing config from the Git-backed Config Server via
-      # POST /actuator/refresh -- no rebuild or restart required.
-      - id: baylor-route
-        uri: https://www.baylor.edu
-        predicates:
-        - Path=/baylor/**
-        filters:
-        - RewritePath=/baylor/(?<segment>.*), /$\{segment}
+      discovery.locator:
+          enabled: true
+          lowerCaseServiceId: true
 
 management:
   endpoints:
